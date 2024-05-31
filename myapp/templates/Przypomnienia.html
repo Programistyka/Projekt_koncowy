@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Twoje przypomnienia</h2>
+
+
+    <a href="?sort=asc">Sortuj od najnowszego</a>
+    <a href="?sort=desc">Sortuj od najstarszego</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tytuł</th>
+                <th>Opis</th>
+                <th>Data przypomnienia</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for przypomnienie in przypomnienia %}
+                <tr>
+                    <td>{{ przypomnienie.tytuł }}</td>
+                    <td>{{ przypomnienie.opis }}</td>
+                    <td>{{ przypomnienie.data_przypomnienia }}</td>
+                    <td>
+                        <a href="{% url 'usun_przypomnienie' przypomnienie.pk %}">Usuń</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Dodaj nowe przypomnienie</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Dodaj przypomnienie</button>
+    </form>
+{% endblock %}
+

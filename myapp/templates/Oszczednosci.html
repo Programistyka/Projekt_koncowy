@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Bilans</h2>
+
+    <form method="get">
+        {{ form.as_p }}
+        <button type="submit">Oblicz</button>
+    </form>
+
+    {% if data_rozpoczecia and data_zakonczenia %}
+        <p>Bilans od {{ data_rozpoczecia|date:"d.m.Y" }} do {{ data_zakonczenia|date:"d.m.Y" }}: {{ bilans|floatformat:2 }} zł</p>
+    {% endif %}
+
+{% endblock %}

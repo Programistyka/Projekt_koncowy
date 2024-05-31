@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Twoje dochody</h2>
+
+    <form method="get">
+        {{ form.as_p }}
+        <button type="submit">Filtruj</button>
+    </form>
+
+    {% if data_rozpoczecia and data_zakonczenia %}
+        <p>Wyświetlane dochody od {{ data_rozpoczecia }} do {{ data_zakonczenia }}</p>
+    {% endif %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Kwota</th>
+                <th>Kategoria</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dochod in dochody %}
+                <tr>
+                    <td>{{ dochod.data|date:"d.m.Y" }}</td>
+                    <td>{{ dochod.kwota }} zł</td>
+                    <td>{{ dochod.kategoria }}</td>
+                    <td>
+                        <a href="{% url 'usun_dochod' dochod.pk %}">Usuń</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="4"></td>
+                <td>Suma: {{ suma_dochodow }} zł</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{% url 'dodaj_dochod' %}">Dodaj nowy dochód</a>
+{% endblock %}
